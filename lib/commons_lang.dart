@@ -19,3 +19,4 @@
 library;
 
 export 'src/bool_utils.dart';
+export 'src/text/str_lookup.dart';
