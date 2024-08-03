@@ -24,10 +24,7 @@ void main() {
   });
 
   test('Test map lookup', () {
-    Map map = {
-      'key': 'value',
-      'number': 2
-    };
+    Map map = {'key': 'value', 'number': 2};
     expect(StrLookup.mapLookup(map).lookup('key'), equals('value'));
     expect(StrLookup.mapLookup(map).lookup('number'), equals('2'));
     expect(StrLookup.mapLookup(map).lookup(null), equals(null));

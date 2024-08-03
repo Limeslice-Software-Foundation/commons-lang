@@ -37,7 +37,6 @@ abstract class StrLookup {
 
 /// Lookup implementation that uses a Map.
 class MapStrLookup extends StrLookup {
-
   /// The map to use for lookups.
   final Map? map;
 

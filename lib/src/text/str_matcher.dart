@@ -36,7 +36,6 @@ abstract class StrMatcher {
 
 /// Class used to define a set of characters for matching purposes.
 class StringMatcher extends StrMatcher {
-
   /// The string to match.
   final String string;
 
@@ -50,23 +49,20 @@ class StringMatcher extends StrMatcher {
   @override
   int isMatch(String buffer, int pos, {int bufferStart = 0, int? bufferEnd}) {
     int length = string.length;
-    int buffEnd = bufferEnd ?? buffer.length-1;
+    int buffEnd = bufferEnd ?? buffer.length - 1;
     if (pos + length > buffEnd) {
       return 0;
     }
-    
+
     return buffer.startsWith(string, pos) ? length : 0;
   }
-
 }
 
 /// Class used to match no characters.
 class NoMatcher extends StrMatcher {
-
   /// Always returns 0.
   @override
   int isMatch(String buffer, int pos, {int bufferStart = 0, int? bufferEnd}) {
     return 0;
   }
-
 }
