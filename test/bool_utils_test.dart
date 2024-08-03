@@ -17,6 +17,14 @@ import 'package:commons_lang/commons_lang.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group('fromInt', () {
+    test('Single character input', () {
+      expect(BoolUtils.fromInt(0), equals(false));
+      expect(BoolUtils.fromInt(1), equals(true));
+      expect(BoolUtils.fromInt(-1), equals(true));
+    });
+  });
+
   group('fromString', () {
     test('Single character input', () {
       expect(BoolUtils.fromString('t'), equals(true));
