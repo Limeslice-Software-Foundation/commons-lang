@@ -13,10 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Commons Lang provides a host of helper utilities for Dart / Flutter 
+/// Commons Lang provides a host of helper utilities for Dart / Flutter
 /// applications, most notably String manipulation methods and basic numerical
 /// methods.
 library;
 
-
-
+export 'src/bool_utils.dart';

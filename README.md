@@ -5,7 +5,7 @@ Commons Lang provides a host of helper utilities for Dart / Flutter applications
 Note that this project is still in its early stages and so may not yet provide complete/full functionality. We will be building up functionality over the next few months through numerous small iterative releases.
 
 ## Table of Contents
-- [Commons Lang](#log4dart-plus)
+- [Commons Lang](#commons-lang)
   - [Table of Contents](#table-of-contents)
   - [About The Project](#about-the-project)
     - [Features](#features)
@@ -20,7 +20,6 @@ Note that this project is still in its early stages and so may not yet provide c
   - [Acknowledgments](#acknowledgments)
   - [Limitation of Liability](#limitation-of-liability)
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 ### Features
