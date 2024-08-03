@@ -37,13 +37,15 @@ abstract class StrLookup {
 
 /// Lookup implementation that uses a Map.
 class MapStrLookup extends StrLookup {
-
   /// The map to use for lookups.
   final Map? map;
 
   /// Create a new instance with the given map.
   MapStrLookup({required this.map});
 
+  /// Looks up a String key to a String value using the map.
+  /// If the map is null, then null is returned.
+  /// The map result object is converted to a string using toString().
   @override
   String? lookup(String? key) {
     if (map == null) {

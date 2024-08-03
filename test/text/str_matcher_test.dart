@@ -17,25 +17,11 @@ import 'package:commons_lang/commons_lang.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('Test none lookup', () {
-    expect(StrLookup.noneLookup.lookup(null), equals(null));
-    expect(StrLookup.noneLookup.lookup(''), equals(null));
-    expect(StrLookup.noneLookup.lookup('Any'), equals(null));
-  });
-
-  test('Test map lookup', () {
-    Map map = {'key': 'value', 'number': 2};
-    expect(StrLookup.mapLookup(map).lookup('key'), equals('value'));
-    expect(StrLookup.mapLookup(map).lookup('number'), equals('2'));
-    expect(StrLookup.mapLookup(map).lookup(null), equals(null));
-    expect(StrLookup.mapLookup(map).lookup(''), equals(null));
-    expect(StrLookup.mapLookup(map).lookup('Any'), equals(null));
-  });
-
-  test('Test map lookup', () {
-    Map? map;
-    expect(StrLookup.mapLookup(map).lookup(null), equals(null));
-    expect(StrLookup.mapLookup(map).lookup(''), equals(null));
-    expect(StrLookup.mapLookup(map).lookup('Any'), equals(null));
+  test('Test String Matcher', () {
+    String buffer = "abcdef";
+    StrMatcher matcher = StrMatcher.stringMatcher("bc");
+    expect(matcher.isMatch(buffer, 0), equals(0));
+    expect(matcher.isMatch(buffer, 1), equals(2));
+    expect(matcher.isMatch(buffer, 2), equals(0));
   });
 }
