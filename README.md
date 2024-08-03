@@ -23,9 +23,7 @@ Note that this project is still in its early stages and so may not yet provide c
 ## About The Project
 
 ### Features
-- Hierarchical Logger allows for advanced configuration of logging at various levels.
-- Various and multiple appenders can be configured for advanced logging capability.
-- Various and multiple layouts that can be used to output log messages in numerous formats.
+- 
 
 
 
