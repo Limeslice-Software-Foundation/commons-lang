@@ -21,3 +21,4 @@ library;
 export 'src/bool_utils.dart';
 export 'src/text/str_lookup.dart';
 export 'src/text/str_matcher.dart';
+export 'src/text/str_substitutor.dart';

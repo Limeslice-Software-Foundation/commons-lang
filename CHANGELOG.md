@@ -1,3 +1,6 @@
+## 0.0.4
+- Add StrSubstitutor class.
+
 ## 0.0.3
 - Add StrLookup class.
 - Add StrMatcher class.
