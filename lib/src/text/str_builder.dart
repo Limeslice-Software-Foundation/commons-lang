@@ -19,14 +19,23 @@ class StrBuilder {
   StrBuilder({this.value = ''});
 
   String charAt(int pos) {
+    if (pos < 0 || pos >= value.length) {
+      throw ArgumentError('', 'pos');
+    }
     return value.substring(pos, pos + 1);
   }
 
   void setCharAt(int pos, String char) {
+    if (pos < 0 || pos >= value.length) {
+      throw ArgumentError('', 'pos');
+    }
     value = value.replaceRange(pos, pos + 1, char);
   }
 
   void deleteCharAt(int pos) {
+    if (pos < 0 || pos >= value.length) {
+      throw ArgumentError('', 'pos');
+    }
     value = value.replaceRange(pos, pos + 1, '');
   }
 
@@ -40,6 +49,10 @@ class StrBuilder {
 
   void clear() {
     value = '';
+  }
+
+  String subString(int offset, int count) {
+    return value.substring(offset, offset+count);
   }
 
   @override
