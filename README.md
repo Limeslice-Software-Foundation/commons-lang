@@ -49,7 +49,7 @@ import 'package:commons_lang/commons_lang.dart';
 
 ## Usage
 
-See the [User Guide](docs/user-guide.md) for detailed information.
+See the [User Guide](doc/user-guide.md) for detailed information.
 
 
 ## Roadmap
