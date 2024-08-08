@@ -15,7 +15,6 @@
 
 /// Provides some additional methods for Strings
 class StrBuilder {
-
   /// Internal String value.
   String value;
 
@@ -67,7 +66,7 @@ class StrBuilder {
 
   /// Create a substring from the given offset with the given length.
   String subString(int offset, int count) {
-    return value.substring(offset, offset+count);
+    return value.substring(offset, offset + count);
   }
 
   /// Return the value as a String.
