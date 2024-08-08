@@ -1,3 +1,9 @@
+## 0.0.4
+- Add StrSubstitutor class.
+- Add StrBuilder class.
+- Update readme.
+- Add user guide.
+
 ## 0.0.3
 - Add StrLookup class.
 - Add StrMatcher class.
