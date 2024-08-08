@@ -3,14 +3,40 @@
 This document serves as the user guide for the commons_lang package.
 
 ## Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Classes available in library](#classes-available-in-library)
+- [Getting Started](#getting-started)
+- [BoolUtils](#boolutils)
+- [StrBuilder](#strbuilder)
+- [StrSubstitutor](#strsubstitutor)
 
-## Classes available for use
+## Classes available in library
 The following is a list of classes available
 - BoolUtils
 - StrBuilder
-- 
+- StrSubstitutor
+
+## Getting Started
+
+Add the package as a dependency.
+
+### Installation
+Add the package to your dependencies.
+
+```
+pub add commons_lang
+```
+
+### Import Package
+
+Import the library in your code.
+
+```Dart
+import 'package:commons_lang/commons_lang.dart';
+```
 
 ## BoolUtils
+Bool utils provides two key functions, converting a bool from a string and converting a bool from an int.
 
 ### From String
 Converts a String to a bool.
@@ -73,3 +99,147 @@ print(builder); // Hllo World!
 ## StrSubstitutor
 
 StrSubstitutor provides extremely powerful and flexible String interpolation.
+
+### Creation
+
+There are two factory methods for quick creation of a StrSubstitutor.
+
+#### From a Map
+
+Perhaps the easiest and most common way to create a StrSubstitutor is from a Map containing the values to use for interpolation.
+
+This can be done as follows:
+
+```Dart
+Map map = {"animal": "quick brown fox", "target": "lazy dog"};
+StrSubstitutor sub = StrSubstitutor.fromMap(map);
+```
+
+#### From a StrLookup
+
+You may with to subclass <code>StrLookup</code> to provide a different mapping function and then use this to create a StrSubstitutor.
+
+An example as follows:
+
+```Dart
+StrLookup lookup = ...
+StrSubstitutor sub = StrSubstitutor.fromLookup(lookup);
+```
+
+### Basic Interpolation
+
+Simple variable substitution is done as follows using the <code>replace</code> method:
+
+```Dart
+Map map = {"animal": "quick brown fox", "target": "lazy dog"};
+StrSubstitutor sub = StrSubstitutor.fromMap(map);
+
+// The quick brown fox jumps over the lazy dog.
+print(sub.replace('The \${animal} jumps over the \${target}.'));
+```
+
+### Escaping Variables
+It is possible that you may wish to escape a variable to avoid substitution. This can be done using the eascape character as a prefix - the default eascape character is <code>$</code>.
+
+```Dart
+// Use \$ as an escape character
+// The ${animal} jumps over the lazy dog.
+print(sub.replace('The \$\${animal} jumps over the \${target}.'));
+```
+
+### Default Options
+
+The default variable prefix is <code>${</code> and the default variable suffix is <code>}</code>. These were selected as they will be most familiar with Dart developers as Dart uses these for its own interpolation. The default escape character is <code>$</code>.
+
+These can be changed to suit your preferences.
+
+```Dart
+sub.setVariablePrefix('#[');
+sub.setVariableSuffix(']');
+sub.escapeChar = '@';
+
+// The quick brown fox jumps over the lazy dog.
+print(sub.replace('The #[animal] jumps over the #[target].'));
+
+// Use @ as an escape character
+// The #[animal] jumps over the lazy dog.
+print(sub.replace('The @#[animal] jumps over the #[target].'));
+```
+
+#### Non Existent Variables
+
+Non existent variables are simply ignored and not interpolated.
+
+```Dart
+// The ${person} jumps over the lazy dog.
+print(sub.replace('The \${person} jumps over the \${target}.'));
+```
+
+### Recursive Substition
+
+Consider the following example
+
+```Dart
+Map map = {
+  "animal": "\${critter}",
+  "target": "\${pet}",
+  "pet": "\${petCharacteristic} dog",
+  "petCharacteristic": "lazy",
+  "critter": "\${critterSpeed} \${critterColor} \${critterType}",
+  "critterSpeed": "quick",
+  "critterColor": "brown",
+  "critterType": "fox",
+};
+StrSubstitutor sub = StrSubstitutor.fromMap(map);
+
+// The quick brown fox jumps over the lazy dog.
+print(sub.replace('The \${animal} jumps over the \${target}.'));
+```
+This provides very powerful interpolation features.
+
+### Cyclic Variables
+
+Cyclic variable substitution is detected and will result in an ArgumentError being thrown.
+
+```Dart
+Map map = {"moon": "\${sun}", "sun": "\${moon}"};
+StrSubstitutor sub = StrSubstitutor.fromMap(map);
+print(sub.replace('\${sun}'));
+```
+
+### Nested Variable Substition
+
+Variables can be nested, that is variables within variables. By default this feature is disabled and has to be explicitly turned on using the <code>enableSubstitutionInVariables</code> bool field.
+
+Consider this example:
+
+```Dart
+Map map = {
+  "animal.1": "fox", 
+  "animal.2": "mouse", 
+  "species": "2",
+  "target": "lazy dog"
+};
+StrSubstitutor sub = StrSubstitutor.fromMap(map);
+sub.enableSubstitutionInVariables = true;
+
+// The mouse jumps over the lazy dog.
+print(sub.replace('The \${animal.\${species}} jumps over the \${target}.'));
+
+map["species"] = "1";
+
+// The fox jumps over the lazy dog.
+print(sub.replace('The \${animal.\${species}} jumps over the \${target}.'));
+```
+
+Again, this provides extremely powerful and flexible interpolation functionality.
+
+### Escaped Nested Variables
+
+It is important to note that nested variables within escaped variables will be interpolated.
+
+```Dart
+// Use \$ as an escape character
+// The \${quick brown fox} jumps over the lazy dog.
+print(sub.replace('The \$\${\${animal}} jumps over the \${target}.'));
+```

@@ -33,6 +33,7 @@ Note that this project is still in its early stages and so may not yet provide c
 Add the package as a dependency.
 
 ### Installation
+Add the package to your dependencies.
 
 ```
 pub add commons_lang

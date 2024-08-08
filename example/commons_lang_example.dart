@@ -18,5 +18,14 @@ void main() {
   // The ${quick brown fox} jumps over the lazy dog.
   print(sub.replace('The \$\${\${animal}} jumps over the \${target}.'));
 
-  
+  sub.setVariablePrefix('#[');
+  sub.setVariableSuffix(']');
+  sub.escapeChar = '@';
+
+  // The quick brown fox jumps over the lazy dog.
+  print(sub.replace('The #[animal] jumps over the #[target].'));
+
+  // Use @ as an escape character
+  // The #[animal] jumps over the lazy dog.
+  print(sub.replace('The @#[animal] jumps over the #[target].'));
 }
