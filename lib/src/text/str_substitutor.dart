@@ -18,25 +18,40 @@ import 'package:commons_lang/src/text/str_builder.dart';
 import 'str_lookup.dart';
 import 'str_matcher.dart';
 
+/// Provides extremely powerful and flexible String interpolation.
 class StrSubstitutor {
+  /// The default escape char is '$'.
   static final String defaultEscape = '\$';
 
+  /// The default prefix matcher uses '${'.
   static final StrMatcher defaultPrefix = StrMatcher.stringMatcher('\${');
 
+  /// The default suffix matcher uses '}'.
   static final StrMatcher defaultSuffix = StrMatcher.stringMatcher('}');
 
+  /// The escape character to use.
   String escapeChar;
+
+  /// The prefix matcher to use.
   StrMatcher prefixMatcher;
+
+  /// The suffix matcher to use.
   StrMatcher suffixMatcher;
+
+  /// The variable resolver to look up variables.
   StrLookup variableResolver;
+
+  /// If variable substitution should be used.
   bool enableSubstitutionInVariables = false;
 
+  /// Create a new StrSubstitutor.
   StrSubstitutor(
       {required this.escapeChar,
       required this.prefixMatcher,
       required this.suffixMatcher,
       required this.variableResolver});
 
+  /// Create a new StrSubstitutor using a map for variable lookup.
   factory StrSubstitutor.fromMap(Map map,
       {String? escapeChar,
       StrMatcher? prefixMatcher,
@@ -48,6 +63,7 @@ class StrSubstitutor {
         suffixMatcher: suffixMatcher ?? defaultSuffix);
   }
 
+  /// Create a new StrSubstitutor using the given variable lookup.
   factory StrSubstitutor.fromLookup(StrLookup lookup,
       {String? escapeChar,
       StrMatcher? prefixMatcher,
@@ -59,14 +75,26 @@ class StrSubstitutor {
         suffixMatcher: suffixMatcher ?? defaultSuffix);
   }
 
+  /// Shortcut method to set the prefix matcher to the given String.
+  void setVariablePrefix(String prefix) {
+    prefixMatcher = StrMatcher.stringMatcher(prefix);
+  }
+
+  /// Shortcut method to set the suffix matcher to the given String.
+  void setVariableSuffix(String suffix) {
+    suffixMatcher = StrMatcher.stringMatcher(suffix);
+  }
+
+  /// Perform interpolation on the given source String.
+  /// Returns null if the source is null.
   String? replace(String? source, {int offset = 0, int? length}) {
     if (source == null) {
       return null;
     }
     int bufLen = length ?? source.length;
-    String input = source;
-    if (substitute(StrBuilder(value: input), offset, bufLen) > 0) {
-      return input;
+    StrBuilder buf = StrBuilder(value: source);
+    if (_substitute(buf, offset, bufLen) > 0) {
+      return buf.toString();
     }
     if (length != null) {
       return source.substring(offset, length);
@@ -75,7 +103,7 @@ class StrSubstitutor {
     }
   }
 
-  int substitute(StrBuilder buf, int offset, int length,
+  int _substitute(StrBuilder buf, int offset, int length,
       {List? priorVariables}) {
     bool top = (priorVariables == null);
     bool altered = false;
@@ -119,31 +147,27 @@ class StrSubstitutor {
                     startPos + startMatchLen, pos - startPos - startMatchLen);
                 if (enableSubstitutionInVariables) {
                   StrBuilder bufName = StrBuilder(value: varName);
-                  substitute(bufName, 0, bufName.length());
+                  _substitute(bufName, 0, bufName.length());
                   varName = bufName.toString();
                 }
                 pos += endMatchLen;
                 int endPos = pos;
 
                 // on the first call initialize priorVariables
-                if (priorVariables == null) {
-                  priorVariables = [];
-                  priorVariables.add(buf.subString(offset, length));
-                }
-
+                priorVariables ??= [];
                 // handle cyclic substitution
-                checkCyclicSubstitution(varName, priorVariables);
+                _checkCyclicSubstitution(varName, priorVariables);
                 priorVariables.add(varName);
 
                 // resolve the variable
                 String? varValue =
-                    resolveVariable(varName, buf, startPos, endPos);
+                    _resolveVariable(varName, buf, startPos, endPos);
                 if (varValue != null) {
                   // recursive replace
                   int varLen = varValue.length;
                   buf.replace(startPos, endPos, varValue);
                   altered = true;
-                  int change = substitute(buf, startPos, varLen,
+                  int change = _substitute(buf, startPos, varLen,
                       priorVariables: priorVariables);
                   change = change + (varLen - (endPos - startPos));
                   pos += change;
@@ -170,14 +194,15 @@ class StrSubstitutor {
     return lengthChange;
   }
 
-  void checkCyclicSubstitution(String varName, List priorVariables) {
+  void _checkCyclicSubstitution(String varName, List priorVariables) {
     if (priorVariables.contains(varName) == false) {
       return;
     }
     throw ArgumentError('Cyclic reference in variable substitution.', varName);
   }
 
-  String? resolveVariable(String variableName, StrBuilder buf, int startPos, int endPos) {
-        return variableResolver.lookup(variableName);
-    }
+  String? _resolveVariable(
+      String variableName, StrBuilder buf, int startPos, int endPos) {
+    return variableResolver.lookup(variableName);
+  }
 }

@@ -10,9 +10,9 @@ Note that this project is still in its early stages and so may not yet provide c
   - [About The Project](#about-the-project)
     - [Features](#features)
   - [Getting Started](#getting-started)
-  - [Installation](#installation)
-  - [Usage](#usage)
+    - [Installation](#installation)
     - [Import Package](#import-package)
+  - [Usage](#usage)
   - [Roadmap](#roadmap)
   - [Contributing](#contributing)
   - [License](#license)
@@ -23,13 +23,14 @@ Note that this project is still in its early stages and so may not yet provide c
 ## About The Project
 
 ### Features
-- 
-
+- Extremely powerful and flexible String interpolation.
+- Utility methods for working with Strings.
+- Utility method for working with bool.
 
 
 ## Getting Started
 
-To do: describe how to get started
+Add the package as a dependency.
 
 ### Installation
 
@@ -37,29 +38,22 @@ To do: describe how to get started
 pub add commons_lang
 ```
 
-
-
-## Usage
-
-To do: describe usage
-
 ### Import Package
 
-Import library
+Import the library in your code.
+
 ```Dart
 import 'package:commons_lang/commons_lang.dart';
 ```
 
+## Usage
 
+See the [User Guide](docs/user-guide.md) for detailed information.
 
 
 ## Roadmap
 
-- [x] Add Changelog
-- [ ] Some cool new feature
-
-See the [open issues](https://github.com/Limeslice-Software-Foundation/log4dart-plus/issues) for a full list of proposed features (and known issues).
-
+See the [open issues](https://github.com/Limeslice-Software-Foundation/commons-lang/issues) for a full list of proposed features (and known issues).
 
 
 ## Contributing
@@ -76,11 +70,9 @@ Don't forget to give the project a star! Thanks again!
 5. Open a Pull Request
 
 
-
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
 
 
 ## Contact
@@ -88,11 +80,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 Limeslice Software Foundation [https://limeslice.org](https://limeslice.org)
 
 
-
 ## Acknowledgments
 
 We would like to thank the authors of the Apache Commons Lang package which has formed the basis of this package.
-
 
 
 ## Limitation of Liability
