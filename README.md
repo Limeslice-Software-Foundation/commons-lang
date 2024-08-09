@@ -51,6 +51,42 @@ import 'package:commons_lang/commons_lang.dart';
 
 See the [User Guide](doc/user-guide.md) for detailed information.
 
+### StrSubstitutor (String Interpolation)
+
+The StrSubstitutor provides extremely powerful and flexible interpolation for advanced use cases. It supports nested variables, recursive lookup and escaping variables.
+
+Consider the following example:
+```Dart
+Map map = {
+  "animal": "\${critter}",
+  "target": "\${pet}",
+  "pet": "\${petCharacteristic} dog",
+  "petCharacteristic": "lazy",
+  "critter": "\${critterSpeed} \${critterColor} \${critterType}",
+  "critterSpeed": "quick",
+  "critterColor": "brown",
+  "critterType": "fox",
+};
+StrSubstitutor sub = StrSubstitutor.fromMap(map);
+
+print(sub.replace('The \${animal} jumps over the \${target}.'));
+```
+The output from the above will be
+```
+The quick brown fox jumps over the lazy dog.
+```
+
+Now consider this variable that is also escaped (the default escape character is $).
+```Dart
+print(sub.replace('The \$\${\${animal}} jumps over the \${target}.'));
+```
+
+The output from the above will be
+```
+The \${quick brown fox} jumps over the lazy dog.
+```
+
+This demonstrates the true power and flexibility of the interpolation provided here. For full details see the [User Guide](doc/user-guide.md). 
 
 ## Roadmap
 
