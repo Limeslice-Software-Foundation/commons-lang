@@ -68,21 +68,18 @@ class MapStrLookup extends StrLookup {
 }
 
 /// Lookup implementation that gets values from the configuration environment.
-/// To specify an environment declaration when running or compiling a Dart / 
-/// Flutter application, use the --define option or its abbreviation, -D. 
+/// To specify an environment declaration when running or compiling a Dart /
+/// Flutter application, use the --define option or its abbreviation, -D.
 /// Example:
 /// <code>$ dart run --define=DEBUG=true</code>
 /// See String.fromEnvironment
 class CfgEnvStrLookup extends StrLookup {
-
-
   /// Lookup a variable from the configuration environment.
   @override
   String? lookup(String? key) {
-    if (key==null) {
+    if (key == null) {
       return null;
     }
-    String.fromEnvironment(key);
+    return String.fromEnvironment(key);
   }
-
 }
