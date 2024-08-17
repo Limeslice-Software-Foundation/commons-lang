@@ -71,9 +71,17 @@ void main() {
       buf.clear();
       expect(buf.toString(), equals(''));
     });
+    
     test('Test length', () {
       expect(buf.length(), equals(12));
     });
+
+    test('Test is empty', () {
+      expect(buf.isEmpty, equals(false));
+      StrBuilder sb = StrBuilder(value: '');
+      expect(sb.isEmpty, equals(true));
+    });
+
     test('Test replace', () {
       buf.replace(6, 12, 'Johnny');
       expect(buf.toString(), equals('Hello Johnny'));
@@ -85,4 +93,5 @@ void main() {
       expect(sb.subString(11, 4), equals('Dart'));
     });
   });
+
 }
