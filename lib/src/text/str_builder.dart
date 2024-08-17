@@ -64,6 +64,11 @@ class StrBuilder {
     value = '';
   }
 
+  /// Whether this builder is empty.
+  bool get isEmpty {
+    return value.isEmpty;
+  }
+
   /// Create a substring from the given offset with the given length.
   String subString(int offset, int count) {
     return value.substring(offset, offset + count);
