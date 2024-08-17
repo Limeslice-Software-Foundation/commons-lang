@@ -1,9 +1,9 @@
 // Licensed to the Limeslice Software Foundation (LSF) under one or more
 // contributor license agreements.  See the NOTICE file distributed with
 // this work for additional information regarding copyright ownership.
-// The LSF licenses this file to You under the Apache License, Version 2.0
-// (the "License"); you may not use this file except in compliance with
-// the License.  You may obtain a copy of the License at
+// The LSF licenses this file to You under the MIT License (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
 // https://limeslice.org/license.txt
 //
@@ -71,7 +71,7 @@ void main() {
       buf.clear();
       expect(buf.toString(), equals(''));
     });
-    
+
     test('Test length', () {
       expect(buf.length(), equals(12));
     });
@@ -93,5 +93,4 @@ void main() {
       expect(sb.subString(11, 4), equals('Dart'));
     });
   });
-
 }

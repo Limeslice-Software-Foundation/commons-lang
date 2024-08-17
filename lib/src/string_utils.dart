@@ -16,7 +16,6 @@ import 'text/str_builder.dart';
 
 /// Provides String utility methods.
 class StringUtils {
-
   /// The default escape character which is a <code>\</code>.
   static const String defaultListEscChar = '\\';
 
@@ -24,9 +23,9 @@ class StringUtils {
   /// The method differs from the built in String split method by allowing
   /// escaping of the delimiter character.
   /// Consider this String: <code>test.separator\=in.key = foo</code>, in this
-  /// case only two Strings will be in the List returned, namely: 
+  /// case only two Strings will be in the List returned, namely:
   /// <code>['test.separator=in.key','foo']</code>
-  /// It is important to note that the escape char can itself be escaped, 
+  /// It is important to note that the escape char can itself be escaped,
   /// consider the following code:
   /// <code>List<String> list = StringUtils.split("C:\\Temp\\\\,xyz", ',');</code>
   /// This will result in a List containing two Strings namely:
