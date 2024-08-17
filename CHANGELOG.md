@@ -1,3 +1,6 @@
+## 0.0.6
+- Add StringUtils class.
+
 ## 0.0.5
 - Add CfgEnvStrLookup class.
 
