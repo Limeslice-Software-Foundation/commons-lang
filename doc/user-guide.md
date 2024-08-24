@@ -7,6 +7,7 @@ This document serves as the user guide for the commons_lang package.
 - [Classes available in library](#classes-available-in-library)
 - [Getting Started](#getting-started)
 - [BoolUtils](#boolutils)
+- [StringUtils](#stringutils)
 - [StrBuilder](#strbuilder)
 - [StrSubstitutor](#strsubstitutor)
 
@@ -76,6 +77,58 @@ Example:
   print(BoolUtils.fromString('false')); // false
   print(BoolUtils.fromString('FALSE')); // false
   print(BoolUtils.fromString('False')); // false
+```
+
+## StringUtils
+
+StringUtils provides some utility methods for working with Strings. It provides a split method that differs from the built in String#split method in Dart by allowing multiple delimiters and allowing delimiters to be escaped. You can specify whether tokens should be trimmed or not.
+
+```Dart
+String s = "abc, xyz , 123";
+List<String> list = StringUtils.split(s, ',');
+print(list[0]); // abc
+print(list[1]); // xyz
+print(list[2]); // 123
+```
+
+### Escaping Delimiters
+
+You can escape delimiters. The default escape character is \\. Note that the escape character is removed from the token output to the list.
+
+```Dart
+String s = "abc\\,xyz, 123";
+List<String> list = StringUtils.split(s, ',');
+```
+
+In this case the list will contain only two items namely: ['abc,xyz','123']
+
+```Dart
+print(list[0]); // abc,xyz
+print(list[1]); // 123
+```
+
+### Multiple Delimiters
+
+This feature is useful when you process Strings that may contain different delimiters but you are not sure exactly which delimiter each string contains. For example in properties files you could have an = and : as delimiters:
+
+```
+key1=value1
+key2:value2
+```
+
+While processing this file line by line you need to check for either of the two delimiters. The split method will handle this.
+
+```Dart
+List<String> list = StringUtils.split(s, '=:');
+```
+
+It is important to note that a given string that contains both delimiters will result in the first delimiter being used.
+
+```Dart
+String s = "key1=value1,key2:value2";
+List<String> list = StringUtils.split(s, '=:');
+print(list[0]); // key1
+print(list[1]); // value1,key2:value2
 ```
 
 ## StrBuilder

@@ -35,6 +35,19 @@ class StringUtils {
     if (str.isEmpty) {
       return [];
     }
+    if (delimiter.isEmpty) {
+      return [str];
+    }
+
+    String delim = '';
+    StrBuilder builder = StrBuilder(value: delimiter);
+    for(int i = 0; i<delimiter.length; i++) {
+      if(str.contains(builder.charAt(i))) {
+        delim = builder.charAt(i);
+        break;
+      }
+    }
+    
 
     List<String> list = [];
     StringBuffer token = StringBuffer();
@@ -47,14 +60,14 @@ class StringUtils {
       if (inEscape) {
         // last character was the escape marker
         // can current character be escaped?
-        if (c != delimiter && c != listEscChar) {
+        if (c != delim && c != listEscChar) {
           // no, also add escape character
           token.write(listEscChar);
         }
         token.write(c);
         inEscape = false;
       } else {
-        if (c == delimiter) {
+        if (c == delim) {
           // found a list delimiter
           String t = token.toString();
           if (trim) {

@@ -67,5 +67,25 @@ void main() {
       expect(list[0], equals('C:\\Temp\\'));
       expect(list[1], equals('xyz'));
     });
+
+    test('Test split empty delimiter', () {
+      String s = "this,is,test";
+      List<String> list = StringUtils.split(s, '');
+      expect(list.length, equals(1));
+      expect(list[0], equals(s));
+    });
+
+    test('Test split with multiple delimiter', () {
+      String s = "key1=value1,key2:value2";
+      List<String> list = StringUtils.split(s, '=:');
+      expect(list.length, equals(2));
+      expect(list[0], equals('key1'));
+      expect(list[1], equals('value1,key2:value2'));
+
+      list = StringUtils.split(s, ':=');
+      expect(list.length, equals(2));
+      expect(list[0], equals('key1=value1,key2'));
+      expect(list[1], equals('value2'));
+    });
   });
 }

@@ -1,3 +1,7 @@
+## 0.0.7
+- Add multiple delimiters to StringUtils split.
+- Update uers guide.
+
 ## 0.0.6
 - Add StringUtils class.
 
