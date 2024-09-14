@@ -14,6 +14,27 @@
 // limitations under the License.
 import 'text/str_builder.dart';
 
+/// A [Map] between whitespace characters and their escape sequences.
+const _escapeMap = {
+  '\n': r'\n',
+  '\r': r'\r',
+  '\f': r'\f',
+  '\b': r'\b',
+  '\t': r'\t',
+  '\v': r'\v',
+  '\x7F': r'\x7F', // delete
+};
+
+/// A [RegExp] that matches whitespace characters that should be escaped.
+final _escapeRegExp = RegExp(
+    '[\\x00-\\x07\\x0E-\\x1F${_escapeMap.keys.map(_getHexLiteral).join()}]');
+
+/// Given single-character string, return the hex-escaped equivalent.
+String _getHexLiteral(String input) {
+  var rune = input.runes.single;
+  return r'\x' + rune.toRadixString(16).toUpperCase().padLeft(2, '0');
+}
+
 /// Provides String utility methods.
 class StringUtils {
   /// The default escape character which is a <code>\</code>.
@@ -41,13 +62,12 @@ class StringUtils {
 
     String delim = '';
     StrBuilder builder = StrBuilder(value: delimiter);
-    for(int i = 0; i<delimiter.length; i++) {
-      if(str.contains(builder.charAt(i))) {
+    for (int i = 0; i < delimiter.length; i++) {
+      if (str.contains(builder.charAt(i))) {
         delim = builder.charAt(i);
         break;
       }
     }
-    
 
     List<String> list = [];
     StringBuffer token = StringBuffer();
@@ -94,5 +114,16 @@ class StringUtils {
     }
     list.add(t);
     return list;
+  }
+
+  /// Returns [str] with all whitespace characters represented as their escape
+  /// sequences.
+  static String escape(String str) {
+    str = str.replaceAll('\\', r'\\');
+    return str.replaceAllMapped(_escapeRegExp, (match) {
+      var mapped = _escapeMap[match[0]];
+      if (mapped != null) return mapped;
+      return _getHexLiteral(match[0]!);
+    });
   }
 }

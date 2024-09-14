@@ -1,6 +1,6 @@
 name: commons_lang
 description: Commons Lang provides a host of helper utilities for Dart / Flutter applications.
-version: 0.0.7
+version: 0.0.8
 repository: https://github.com/Limeslice-Software-Foundation/commons-lang
 
 environment:

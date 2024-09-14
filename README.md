@@ -2,8 +2,6 @@
 
 Commons Lang provides a host of helper utilities for Dart / Flutter applications, most notably String manipulation methods and basic numerical methods.
 
-Note that this project is still in its early stages and so may not yet provide complete/full functionality. We will be building up functionality over the next few months through numerous small iterative releases.
-
 ## Table of Contents
 - [Commons Lang](#commons-lang)
   - [Table of Contents](#table-of-contents)
