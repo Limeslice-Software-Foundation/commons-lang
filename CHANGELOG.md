@@ -1,3 +1,6 @@
+## 0.0.8
+- Add string escape to StringUtils class.
+
 ## 0.0.7
 - Add multiple delimiters to StringUtils split.
 - Update uers guide.

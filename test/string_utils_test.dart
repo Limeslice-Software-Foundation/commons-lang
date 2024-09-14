@@ -88,4 +88,9 @@ void main() {
       expect(list[1], equals('value2'));
     });
   });
+
+  test('Test escape', () {
+    expect(StringUtils.escape(r'This is \, an escaped value'),
+        equals('This is \\\\, an escaped value'));
+  });
 }
